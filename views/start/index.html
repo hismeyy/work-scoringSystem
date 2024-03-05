@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>车型测试</title>
+    <link rel="stylesheet" href="./main.css">
+</head>
+<body>
+<div id="box">
+    <div class="form-group">
+        <label for="carModel">请输入要测试的车型:</label>
+        <input type="text" id="carModel" name="carModel">
+    </div>
+
+    <div class="form-group">
+        <label for="testerName">请输入测试员的名字:</label>
+        <input type="text" id="testerName" name="testerName">
+    </div>
+
+    <div class="form-group">
+        <button id="fileUButton" onclick="getFile()">选择模块</button>
+        <label id="fileUpload"></label>
+    </div>
+    <button onclick="startTest()">开始</button>
+</div>
+
+<div class="control" style="display: none">
+    <button class="ope_button">操作1</button>
+    <button class="ope_button">操作2</button>
+    <button class="ope_button">操作3</button>
+</div>
+
+
+
+<script src="./main.js"></script>
+</body>
+</html>
