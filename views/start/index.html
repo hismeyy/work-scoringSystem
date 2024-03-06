@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <title>车型测试</title>
     <link rel="stylesheet" href="./main.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 <div id="box">
@@ -25,11 +34,22 @@
 </div>
 
 <div class="control" style="display: none">
-    <button class="ope_button">操作1</button>
-    <button class="ope_button">操作2</button>
-    <button class="ope_button">操作3</button>
 </div>
 
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                您觉得此操作是否有<span style="color: red">突出优点或者缺点</span>？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="confirmYes">有</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="confirmNo">无</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script src="./main.js"></script>

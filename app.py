@@ -1,14 +1,17 @@
 import os
 import tkinter as tk
 from tkinter import filedialog
+
 import webview
+
 from script.parsing_excel import *
 
 data = None
 operation_data = None
-score_data = None
-project_data = None
-result_data = None
+score_data = []
+project_data = []
+result_project_data = []
+g_result = []
 
 g_car_model = None
 g_tester_name = None
@@ -23,7 +26,7 @@ class Api:
         global operation_data
         global score_data
         global project_data
-        global result_data
+        global result_project_data
         global g_car_model
         global g_tester_name
         global g_file_path
@@ -40,13 +43,58 @@ class Api:
         operation_data = get_operation(data)
         score_data = get_score(data)
         project_data = get_project(data)
-        result_data = build_data(operation_data, score_data, project_data)
+        result_project_data = build_data(operation_data, score_data, project_data)
 
         obj = {
-            "g_page_num" : g_page_num,
+            "g_page_num": g_page_num,
             "operation_data": operation_data
         }
         return obj
+
+    def defaultScore(self, index):
+        # 确保全局变量可访问
+        global score_data
+        global g_result
+        global operation_data
+
+        # 从operation_data中根据index获取得分列表，并去掉第一个元素（假定为非得分数据）
+        temp_data = operation_data
+        score_list = temp_data[int(index)][1:]
+
+        # 使用列表推导式优化得分列表的计算过程
+        # 如果原始得分为1，则新得分为6，否则为0
+        result_score_list = [6 if int(score) == 1 else 0 for score in score_list]
+
+        # 构造要添加的新结果对象
+        obj = {
+            "index": int(index),
+            "result_score_list": result_score_list
+        }
+
+        # 使用列表推导式优化移除相同index对象的过程
+        # 只保留index不同的对象
+        g_result = [o for o in g_result if o["index"] != int(index)]
+
+        # 将新的结果对象添加到列表中
+        g_result.append(obj)
+
+        return g_result
+
+    def nextPage(self, index):
+        global result_project_data
+        global score_data
+        global operation_data
+
+        temp_data = operation_data
+        score_list = temp_data[int(index)][1:]
+
+        i = 0
+        result_project = []
+        for score in score_list:
+            if int(score) == 1:
+                result_project.append(result_project_data[i])
+            i += 1
+        return result_project
 
     def getFile(self):
         root = tk.Tk()
