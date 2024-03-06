@@ -38,6 +38,9 @@ function startTest() {
         let controlDiv = document.querySelector('.control');
         controlDiv.style.display = 'block';
         controlDiv.innerHTML = '';
+
+        controlDiv.innerHTML += '<h1 style="font-size: 24px">选择操作：</h1>'
+
         response.operation_data.forEach((operation, index) => {
             let button = document.createElement('button');
             button.className = 'ope_button';
@@ -92,6 +95,7 @@ function yes(index) {
         // 清空
         document.querySelector('.control').innerHTML = '';
 
+        document.querySelector('.control').innerHTML += '<h1 style="font-size: 24px">您觉得优点或缺点在于<span style="color: red">哪个过程</span>？</h1>'
         const categoryIndices = {};
         response.forEach((item, index) => {
             if (!categoryIndices.hasOwnProperty(item[0])) {
@@ -147,7 +151,7 @@ function clickScoreItem(self, data) {
     // 说明还没有到打分项目 继续生成打分项目
     // 清空.control元素中的内容
     document.querySelector('.control').innerHTML = '';
-
+    document.querySelector('.control').innerHTML += '<h1 style="font-size: 24px">您觉得' + '<span style="color: red">' + self.getAttribute('data-category') + ' </span> 存在哪些优点或缺点？</h1>'
     // 筛选数据
     console.log("current_index", current_index)
     console.log("self", up_self)
