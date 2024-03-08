@@ -30,7 +30,7 @@
         <button id="fileUButton" onclick="getFile()">选择模块</button>
         <label id="fileUpload"></label>
     </div>
-    <button onclick="startTest()">开始</button>
+    <button onclick="startTest(false)">开始</button>
 </div>
 
 <div class="control" style="display: none">
@@ -46,6 +46,21 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="confirmYes">有</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal" id="confirmNo">无</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="out" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                确认<span style="color: red">操作完成</span>并记录？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="outYes">是</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="outNo">否</button>
             </div>
         </div>
     </div>
