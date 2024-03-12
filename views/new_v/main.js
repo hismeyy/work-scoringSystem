@@ -1,5 +1,6 @@
 confirmModal = $('#confirmModal')
 out = $('#out')
+oper = ""
 
 g_index = null // 代表当前给那个操作打分
 // 获取文件
@@ -41,13 +42,12 @@ function startTest(flag) {
 
             // 检查g_result数组中是否存在匹配的index
             if (obj.flag) {
-                button.style.backgroundColor = 'red';
+                button.style.backgroundColor = '#FFCCCC';
             }
 
             button.addEventListener('click', function () {
-                console.log(obj.index)
-                console.log(obj.operation)
-                console.log(obj.flag)
+                console.log(this.innerText)
+                oper = this.innerText
                 getProjectList(obj.index);
             });
             controlDiv.appendChild(button);
@@ -123,7 +123,8 @@ function yes(index) {
         // // 清空
         document.querySelector('.control').innerHTML = '';
 
-        document.querySelector('.control').innerHTML += '<h1 style="font-size: 24px">您觉得优点或缺点在于<span style="color: red">哪个过程</span>？</h1>'
+        document.querySelector('.control').innerHTML += '<h1 style="font-size: 18px">当前操作 :<span style="font-weight: bold">' + oper + '</span></h1><br>'
+        document.querySelector('.control').innerHTML += '<h1 style="font-size: 18px">您觉得优点或缺点在于<span style="color: #FFCCCC">哪个过程</span>？</h1>'
 
         response.forEach(obj => {
             // 创建按钮并设置内容
@@ -133,7 +134,7 @@ function yes(index) {
             button.setAttribute('data-category', obj.project);
 
             if (obj.flag) {
-                button.style.backgroundColor = 'red';
+                button.style.backgroundColor = '#FFCCCC';
             }
 
             // 绑定点击事件
@@ -172,8 +173,8 @@ function clickScoreItem(index, projectName) {
             console.log(response)
             // // 清空
             document.querySelector('.control').innerHTML = '';
-
-            document.querySelector('.control').innerHTML += '<h1 style="font-size: 24px">您觉得' + '<span style="color: red">' + projectName + ' </span> 存在哪些优点或缺点？</h1>'
+            document.querySelector('.control').innerHTML += '<h1 style="font-size: 18px">当前操作 :<span style="font-weight: bold">' + oper + '</span></h1><br>'
+            document.querySelector('.control').innerHTML += '<h1 style="font-size: 18px">您觉得' + '<span style="color: #FFCCCC">' + projectName + ' </span> 存在哪些优点或缺点？</h1>'
 
             response.forEach(obj => {
                 // 创建按钮并设置内容
@@ -182,7 +183,7 @@ function clickScoreItem(index, projectName) {
                 button.textContent = obj.project;
                 button.setAttribute('data-category', obj.project);
                 if (obj.flag) {
-                    button.style.backgroundColor = 'red';
+                    button.style.backgroundColor = '#FFCCCC';
                 }
                 // 绑定点击事件
                 button.addEventListener('click', function () {
@@ -220,8 +221,8 @@ function clickScoreItem(index, projectName) {
                 console.log(response)
                 // // 清空
                 document.querySelector('.control').innerHTML = '';
-
-                document.querySelector('.control').innerHTML += '<h1 style="font-size: 24px">您觉得<span style="color: red"> ' + projectName + '</span> 能打几分？</h1>'
+                document.querySelector('.control').innerHTML += '<h1 style="font-size: 18px">当前操作 :<span style="font-weight: bold">' + oper + '</span></h1><br>'
+                document.querySelector('.control').innerHTML += '<h1 style="font-size: 18px">您觉得<span style="color: #FFCCCC"> ' + projectName + '</span> 能打几分？</h1>'
 
                 response.forEach((obj, obj_index) => {
                     obj = obj === null ? "" : obj

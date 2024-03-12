@@ -8,6 +8,7 @@ body {
     justify-content: center;
     align-items: center;
     /*height: 100vh;*/
+    color: #000
 }
 
 #box {
@@ -40,8 +41,7 @@ body {
 }
 
 button {
-    background-color: #007bff;
-    color: white;
+    background-color: #CFD5EA;
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
@@ -50,7 +50,7 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #CFD5EA;
 }
 
 .control {

@@ -26,9 +26,30 @@ nodes = {}
 
 current_index = 0  # 当前的操作步骤 0是操作层 1以后就是打分层也就是进了树的第一层
 
-g_car_model = ""
-g_tester_name = ""
-g_file_path = ""
+g_car_model = ""  # 车模型
+g_tester_name = ""  # 测试员姓名
+g_file_path = ""  # 文件
+
+
+def update_leaf_nodes_to_six(node):
+    """更新给定节点下所有值为None的末端节点的值为6"""
+    # 检查是否为末端节点
+    if not node.children:  # 如果没有子节点，即为末端节点
+        if node.name is None:  # 检查值是否为None
+            node.name = 6  # 更新值为6
+    else:
+        # 如果不是末端节点，递归检查其子节点
+        for child in node.children:
+            update_leaf_nodes_to_six(child)
+
+
+def set_leaf_values_to_six(root, target_node_name):
+    """找到具有给定名称的节点，并更新其所有末端子节点的值"""
+    target_node = find_by_attr(root, name="name", value=target_node_name)
+    if target_node:
+        update_leaf_nodes_to_six(target_node)
+    else:
+        print(f"未找到名为 '{target_node_name}' 的节点")
 
 
 # 创建节点的函数
@@ -324,18 +345,24 @@ class Api:
         global current_index
         # index 是操作的所有用来获取树
         global g_score_tree_objs
+
         if current_index > 2:
             for obj in g_score_tree_objs:
                 if obj["index"] == int(index):
+                    set_leaf_values_to_six(obj["root"], project_name)
                     current_index = current_index - 2
                     parent_name = get_parent_node_name(obj["root"], project_name)
                     print(f"上一页{current_index}")
                     return parent_name
+
         current_index = current_index - 2
 
         if current_index < 0:
             return "goto0"
 
+        for obj in g_score_tree_objs:
+            if obj["index"] == int(index):
+                set_leaf_values_to_six(obj["root"], project_name)
         return "goto1"
 
     def out_score(self):
@@ -374,11 +401,15 @@ class Api:
         for temp_row in range(operation_start_row, max_row):
             for temp_column in range(column, 1, -1):
                 value = sheet.cell(row=temp_row, column=temp_column).value
-                print(value)
                 if int(value) == 1:
-                    sheet.cell(row=temp_row, column=temp_column).value = result_score[temp_row - operation_start_row].pop()
+                    sheet.cell(row=temp_row, column=temp_column).value = result_score[
+                        temp_row - operation_start_row].pop()
                 else:
                     sheet.cell(row=temp_row, column=temp_column).value = None
+
+        sheet['A1'] = g_car_model
+        sheet['A2'] = os.path.basename(g_file_path)
+        sheet['A3'] = g_tester_name
         output_path = os.path.join(folder_path, file_name)
         # 保存工作簿
         workbook.save(output_path)
@@ -405,4 +436,5 @@ window = webview.create_window(
 
 # 获取配置
 operation_start_row, score_start, project_end, column = get_config()
-webview.start(debug=True)
+# webview.start(debug=True)
+webview.start()
